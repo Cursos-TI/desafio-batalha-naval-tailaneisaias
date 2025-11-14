@@ -112,6 +112,67 @@ int main()
     // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
     // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
 
+    int tabuleiro[10][10] = {0};
+
+    int cone[5][5];
+    int cruz[5][5];
+    int octaedro[5][5];
+
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            cone[i][j] = (j >= 2 - i && j <= 2 + i) ? 1 : 0;
+        }
+    }
+
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            cruz[i][j] = (i == 2 || j == 2) ? 1 : 0;
+        }
+    }
+
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            octaedro[i][j] = (abs(2 - i) + abs(2 - j) <= 2) ? 1 : 0;
+        }
+    }
+
+    int origemLinha = 3;
+    int origemColuna = 3;
+
+    for (int i = 0; i < 5; i++)
+    {
+        for (int j = 0; j < 5; j++)
+        {
+            int linha = origemLinha + i - 2;
+            int coluna = origemColuna + j - 2;
+
+            if (linha >= 0 && linha < 10 && coluna >= 0 && coluna < 10)
+            {
+                if (cone[i][j] == 1)
+                    tabuleiro[linha][coluna] = 1;
+                if (cruz[i][j] == 1)
+                    tabuleiro[linha][coluna] = 1;
+                if (octaedro[i][j] == 1)
+                    tabuleiro[linha][coluna] = 1;
+            }
+        }
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            printf("%d ", tabuleiro[i][j]);
+        }
+        printf("\n");
+    }
+
     // Exemplos de exibição das habilidades:
     // Exemplo para habilidade em cone:
     // 0 0 1 0 0
